@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--Project was exported from assembly: E:\OneDrive\____Sphera_Vopak\servicos_4IP\recriado_DotPeek\A4_Comum_G01CNC01.dll-->
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2D77F528-AAFA-4090-BC5E-B2BCE4A582CF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AssemblyName>Comum</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <ApplicationVersion>1.0.0.0</ApplicationVersion>
+    <FileAlignment>512</FileAlignment>
+    <RootNamespace>Comum</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dapper">
+      <HintPath>lib\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="Dominio">
+      <HintPath>..\Dominio\bin\Debug\Dominio.dll</HintPath>
+    </Reference>
+    <Reference Include="Infra">
+      <HintPath>lib\Infra.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AbreFalha.cs" />
+    <Compile Include="AjustaDataHora.cs" />
+    <Compile Include="Amir_UDP_Logger.cs" />
+    <Compile Include="AtualizaListaControladora.cs" />
+    <Compile Include="Base.cs" />
+    <Compile Include="ColaboradorConsulta.cs" />
+    <Compile Include="CriaChaveRegistroWindows.cs" />
+    <Compile Include="Enviar.cs" />
+    <Compile Include="FechaFalha.cs" />
+    <Compile Include="GravaAcessoPatio.cs" />
+    <Compile Include="GravaAcesso.cs" />
+    <Compile Include="GravaAcessoSphera.cs" />
+    <Compile Include="AcessoTemporario.cs" />
+    <Compile Include="GravaEventLog.cs" />
+    <Compile Include="GravaScoreBiometria.cs" />
+    <Compile Include="InicializaControladora.cs" />
+    <Compile Include="InserirDuploAcesso.cs" />
+    <Compile Include="InserirOcorrenciaGuarda.cs" />
+    <Compile Include="LocalizaCrachaMaster.cs" />
+    <Compile Include="LocalizaCracha.cs" />
+    <Compile Include="LocalizaVeiculo.cs" />
+    <Compile Include="Logar.cs" />
+    <Compile Include="NovaSecao.cs" />
+    <Compile Include="PegaCamerasLAP.cs" />
+    <Compile Include="PegaCamerasLBF.cs" />
+    <Compile Include="PegaConfiguracaoLAP.cs" />
+    <Compile Include="PegaConfiguracaoLBF.cs" />
+    <Compile Include="PegaConfiguracaoServico.cs" />
+    <Compile Include="PegaControladora.cs" />
+    <Compile Include="PegaPortaEscuta.cs" />
+    <Compile Include="Retorna_S.cs" />
+    <Compile Include="RetornoTesteLAP.cs" />
+    <Compile Include="RetornoTesteLBF.cs" />
+    <Compile Include="SolicitaLista.cs" />
+    <Compile Include="TestePing.cs" />
+    <Compile Include="ValidarMotivacaoSaida.cs" />
+    <Compile Include="ValidaUltimoAcesso.cs" />
+    <Compile Include="ValidarMotivacao.cs" />
+    <Compile Include="VerificaAcesso.cs" />
+    <Compile Include="VerificaAcessoDiretoEstacionamento.cs" />
+    <Compile Include="VerificaAcessoDiretoSphera.cs" />
+    <Compile Include="VerificaVagas.cs" />
+    <Compile Include="VerificaBalanca.cs" />
+    <Compile Include="VerificaDuploAcesso.cs" />
+    <Compile Include="VerificaGuarda.cs" />
+    <Compile Include="VerificaLAP.cs" />
+    <Compile Include="VerificaLBF.cs" />
+    <Compile Include="VerificaListaNegra.cs" />
+    <Compile Include="VerificandoDuploAccesso.cs" />
+    <Compile Include="VerificaRetornoScore.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AcessoDados\AcessoDados.csproj">
+      <Project>{8a6f36ff-ac61-481d-89f5-1d3bcb55fdb6}</Project>
+      <Name>AcessoDados</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

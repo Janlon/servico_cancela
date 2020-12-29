@@ -1,0 +1,101 @@
+*************************************************************************************************************
+**  1  ******************************************************************************************************
+	
+
+
+Configurado para 4IP usando IP=172.100.2.21; portas=16030/15030 --- trocar portas
+
+
+*************************************************************************************************************
+**  2  ******************************************************************************************************
+
+main				criar diretorio de log_file?
+
+
+*************************************************************************************************************
+**  3  ******************************************************************************************************
+
+
+verificar if (strArray[0] == "NOKP" || strArray[1] == "NOKC" || strArray[1] == "NOKE") --- [0]..[1]..[1] ????
+
+
+*************************************************************************************************************
+*************************************************************************************************************
+*************************************************************************************************************
+**  FEITO  **************************************************************************************************
+
+sub-rotina "OCR[0] Start - Tentativa ..." para "OCR[1] Start - Tentativa"
+
+
+amir_udp_logger		usar data AAAAMMDD
+
+
+udp_logger.log("INFO", "UDP_RX", "Recebeu de " + this.v_IP.ToString() + ":" + this.v_Porta_Envio.ToString() + v_Comando);
+	adicionar \t antes de v_Comando
+	colocar antes de "regras.IRegras(v_Comando, this.v_IP, this.v_Porta_Envio);"
+
+udp_logger.log("INFO", "UDP_TX", v_Comando);
+	adicionar \t antes de v_Comando (para ficar alinhado com UDP_RX)
+
+
+***
+
+
+public void Inicializa_Controladora(
+    IPAddress v_IP,
+    int v_Porta_Envio,
+    string v_s_Aplicacao,
+    int v_Id_Equipamento)
+{
+    try
+    {
+    string str1 = "";
+    string str2 = ((int) Convert.ToInt16(ConfigurationManager.AppSettings["GATE"].Replace("G", ""))).ToString("X").PadLeft(2, '0');
+    if (v_s_Aplicacao.Substring(3, 3) == "CNC")
+    {
+        if (ConfigurationManager.AppSettings["SENTIDO_ACESSO"].ToString() == "E")
+        str1 = !(ConfigurationManager.AppSettings["MODO"].ToString() == "B") ? "$S" + str2 + "00EPNEPNEPNNN81580020A100#" : "$S" + str2 + "00EBNEBNEBNNN81580020A100#";
+        if (ConfigurationManager.AppSettings["SENTIDO_ACESSO"].ToString() == "S")
+        str1 = !(ConfigurationManager.AppSettings["MODO"].ToString() == "B") ? "$S" + str2 + "00SPNSPNSPNNN81580020A100#" : "$S" + str2 + "00SBNSBNSBNNN81580020A100#";
+    }
+    else
+        str1 = !(v_s_Aplicacao.Substring(3, 3) == "POR") ? (!(ConfigurationManager.AppSettings["MODO"].ToString() == "B") ? "$S" + str2 + "00EPNSPNVPNNT81580020A100#" : "$S" + str2 + "00EBNSBNVBNNT81580020A100#") : (!(ConfigurationManager.AppSettings["MODO"].ToString() == "B") ? "$S" + str2 + "00EPNEPNEPNNN81580020A100#" : "$S" + str2 + "00EBNEBNEBNNN81580020A100#");
+    if (str1 != "" && str1.Length == 30)
+    {
+        new Enviar().IEnviar(str1, v_IP, v_Porta_Envio, v_s_Aplicacao, v_Id_Equipamento);
+        new Logar().ILogar(v_s_Aplicacao.ToString(), "0", v_Id_Equipamento, 74, "", str1, (string) null, "E", nameof (Inicializa_Controladora));
+    }
+    else
+        new Logar().ILogar(v_s_Aplicacao.ToString(), "0", v_Id_Equipamento, 76, "", str1, (string) null, "E", nameof (Inicializa_Controladora));
+    new Enviar().IEnviar("$DSM  ***SPHERA***   ***SECURITY*** 005#", v_IP, v_Porta_Envio, v_s_Aplicacao, v_Id_Equipamento);
+    string str3 = "1";
+    string str4 = "$LIN5#";
+    new Enviar().IEnviar(str4, v_IP, v_Porta_Envio, v_s_Aplicacao, v_Id_Equipamento);
+    string str5 = "$CVD0#";
+    new Enviar().IEnviar(str5, v_IP, v_Porta_Envio, v_s_Aplicacao, v_Id_Equipamento);
+    string str6 = "$CVV0#";
+    new Enviar().IEnviar(str6, v_IP, v_Porta_Envio, v_s_Aplicacao, v_Id_Equipamento);
+    string str7 = "$CVT0#";
+    new Enviar().IEnviar(str7, v_IP, v_Porta_Envio, v_s_Aplicacao, v_Id_Equipamento);
+    string str8 = "$CVO0#";
+    new Enviar().IEnviar(str8, v_IP, v_Porta_Envio, v_s_Aplicacao, v_Id_Equipamento);
+    string str9 = "$CES" + str3 + "#";
+    new Enviar().IEnviar(str9, v_IP, v_Porta_Envio, v_s_Aplicacao, v_Id_Equipamento);
+    string str10 = "$CVL1#";
+    new Enviar().IEnviar(str10, v_IP, v_Porta_Envio, v_s_Aplicacao, v_Id_Equipamento);
+    string str11 = "$CEC1#";
+    new Enviar().IEnviar(str11, v_IP, v_Porta_Envio, v_s_Aplicacao, v_Id_Equipamento);
+    string str12 = "$CLO030000600002000#";
+    new Enviar().IEnviar(str12, v_IP, v_Porta_Envio, v_s_Aplicacao, v_Id_Equipamento);
+    string str13 = "$ISM00900#";
+    new Enviar().IEnviar(str13, v_IP, v_Porta_Envio, v_s_Aplicacao, v_Id_Equipamento);
+    string str14 = "$HKS120#";
+    new Enviar().IEnviar(str14, v_IP, v_Porta_Envio, v_s_Aplicacao, v_Id_Equipamento);
+    new AjustaDataHora().AjustarDataHora(v_s_Aplicacao, v_Id_Equipamento, v_IP, v_Porta_Envio);
+    new GravaEventLog().GravarEventLog(v_s_Aplicacao, "Inicializa Controladora: ok", EventLogEntryType.Information, (Exception) null);
+    }
+    finally
+    {
+    this.Terminate();
+    }
+}
